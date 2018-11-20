@@ -4,6 +4,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import DefaultTheme from './components/DefaultTheme'
 import Header from './components/Header'
 import routes from './routes'
+// import PrivateRoute from './PrivateRoute'
+import HomePage from './modules/homePage'
 
 class App extends Component {
   render() {
@@ -14,11 +16,11 @@ class App extends Component {
             <Switch>
               {routes.map((route, index) => (
                 <Route
-                  key={index}
-                  path={route.path}
-                  exact={route.exact}
-                  component={route.component}
-                />
+                            key={route}
+                            path={route.path}
+                            exact={route.exact}
+                            component={route.component}
+                        />
               ))}
             </Switch>
         </div>

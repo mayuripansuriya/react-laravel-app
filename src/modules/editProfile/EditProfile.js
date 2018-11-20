@@ -30,7 +30,8 @@ export default class EditPage extends React.Component {
     }
 
     componentDidMount() {
-        // this.props.dispatch(userActions.getById(this.props.match.params.id));
+        this.props.getById(this.props.match.params.id);
+        console.log('-==-=-=-=-')
         this.setState({
             user:this.props.user
         })

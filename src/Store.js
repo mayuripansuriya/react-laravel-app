@@ -7,9 +7,7 @@ import Reducer from '../src/reducers';
 
 const Store = createStore(
 
-    combineReducers({
-        reducer : Reducer
-    }),
+    combineReducers(Reducer),
     applyMiddleware(thunk, promiseMiddleware())
 
 )

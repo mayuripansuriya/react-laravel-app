@@ -48,6 +48,7 @@ export default class RegisterPage extends React.Component {
         let { user } = this.state;
         console.log("user", this.state.user);
         const { dispatch } = this.props;
+        console.log(this.props)
         this.setState({
             submitted:true
         })
@@ -65,7 +66,8 @@ export default class RegisterPage extends React.Component {
             })
         }
        if (user.first_name && user.last_name && user.email && user.password && user.address && user.city) {
-            // dispatch(userActions.register(user));
+             console.log(user, '---')
+             this.props.register(user.first_name, user.last_name, user.email, user.password ,user.password_confirmation , user.address, user.city, user.image);
        }
     }
 

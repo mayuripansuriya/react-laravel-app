@@ -5,7 +5,7 @@ import { Grid, Row, Col, Panel } from 'react-bootstrap';
 
 // import { userActions } from '../_actions';
 
-export default class ProfilePage extends React.Component {
+export default class HomePage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

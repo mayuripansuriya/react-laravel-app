@@ -5,11 +5,8 @@ import HomePage from './HomePage';
 
 export default connect(
     state => {
-    	console.log(state);
     	return ({
-    	 user : state.authentication.user,
-    	 // isLoggedIn: state.authentication.isLoggedIn,
-    	 // loginErrorMessage: state.authentication.loginErrorMessage
+    	 user : state.authentication.user.user,
     })},
     dispatch => bindActionCreators(Actions, dispatch)
 )(HomePage)

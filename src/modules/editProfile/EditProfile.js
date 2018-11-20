@@ -5,10 +5,7 @@ import { connect } from 'react-redux';
 // import { userActions } from '../_actions';
 
 export default class EditPage extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
+   state = {
             user: {
                 first_name: '',
                 last_name: '',
@@ -19,24 +16,19 @@ export default class EditPage extends React.Component {
                 password_confirmation: '',
                 image: ''
             },
-            step:1,
             image:"",
             imagePreviewUrl: '',
             submitted: false
         };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
     componentDidMount() {
         this.props.getById(this.props.match.params.id);
-        console.log('-==-=-=-=-')
+        console.log(this.props.user, '-==-=-=-=-')
         this.setState({
             user:this.props.user
         })
     }
-    handleChange(event) {
+    handleChange = (event) => {
 
         const { name, value } = event.target;
         console.log(name, value);
@@ -49,16 +41,16 @@ export default class EditPage extends React.Component {
         });
     }
 
-    handleSubmit(event) {
+    handleSubmit = (event) => {
         event.preventDefault();
         let { user } = this.state;
-        console.log("user", this.state.user);
+
         const { dispatch } = this.props;
         this.setState({
             submitted:true
         })
        if (user.first_name && user.last_name && user.email && user.address && user.city) {
-            // dispatch(userActions.update(user));
+            this.props.update(user.id, user.first_name, user.last_name, user.email, user.password ,user.password_confirmation , user.address, user.city, user.image);
        }
     }
 
@@ -109,9 +101,65 @@ export default class EditPage extends React.Component {
                 {
                     errors && this.randerErrors(errors)
                 }
-                <h2>Edit</h2>
+                <h2>Edit{user.first_name}</h2>
                 <form name="form" onSubmit={this.handleSubmit}>
-                   
+                    <div>
+                        <div className={'form-group' + (submitted && !user.first_name ? ' has-error' : '')}>
+                            <label htmlFor="first_name">First Name</label>
+                            <input type="text" className="form-control" name="first_name" value={user.first_name} onChange={this.handleChange} />
+                            {submitted && !user.first_name &&
+                                <div className="help-block">First Name is required</div>
+                            }
+                        </div>
+                        <div className={'form-group'}>
+                            <label htmlFor="last_name">Last Name</label>
+                            <input type="text" className="form-control" name="last_name" value={user.last_name} onChange={this.handleChange} />
+                        
+                        </div>
+                         <div className={'form-group' + (submitted && !user.address ? ' has-error' : '')}>
+                            <label htmlFor="address">Address</label>
+                            <input type="text" className="form-control" name="address" value={user.address} onChange={this.handleChange} />
+                            {submitted && !user.address &&
+                                <div className="help-block">Address is required</div>
+                            }
+                        </div>
+                         <div className={'form-group' + (submitted && !user.city ? ' has-error' : '')}>
+                            <label htmlFor="city">City</label>
+                            <input type="text" className="form-control" name="city" value={user.city} onChange={this.handleChange} />
+                            {submitted && !user.city &&
+                                <div className="help-block">City is required</div>
+                            }
+                        </div>
+                         
+
+                        <div className={'form-group' + (submitted && !user.image ? ' has-error' : '')}>
+                            <label htmlFor="image">Image</label>
+                            <input type='file' id='image' name="image"  onChange={this.onChange} /> 
+                            {submitted && !user.image &&
+                                <div className="help-block">Image is required</div>
+                            }
+                            <div className="img-preview">
+                                        {$imagePreview}
+                                    </div>
+                        </div> 
+                        
+                         <div className={'form-group' + (submitted && !user.email ? ' has-error' : '')}>
+                            <label htmlFor="email">Email</label>
+                            <input type="email" className="form-control" name="email" value={user.email} onChange={this.handleChange} />
+                            {submitted && !user.email &&
+                                <div className="help-block">Email is required</div>
+                            }
+                        </div>
+                    
+                        <div className="form-group">
+                            <button className="btn btn-primary">Edit</button>
+                            {registering && 
+                                <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                            }
+                            <Link to={"/user/" + user.id} className="btn btn-link">Cancel</Link>
+                        </div>
+                        
+                    </div>
                 
                 </form>
             </div>

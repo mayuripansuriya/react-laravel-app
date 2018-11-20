@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Grid, Row, Col, Panel } from 'react-bootstrap';
 
-// import { userActions } from '../_actions';
-
 export default class HomePage extends React.Component {
      render() {
         const { user } = this.props;

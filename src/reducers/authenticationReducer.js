@@ -1,46 +1,18 @@
-import { userConstants, LOGIN_USER, REGISTER_USER, GETBYID } from '../actions/actionTypes';
+import { userConstants, LOGIN_USER, REGISTER_USER, GETBYID,  LOGOUT } from '../actions/actionTypes';
 
 let user = JSON.parse(localStorage.getItem('user'));
-console.log(user)
+
 const initialState = {
   user: {},
   isLoggedIn: false,
   loginErrorMessage: '',
+  registerErrorMessage: ''
 }
 
 initialState.user = user ? { loggedIn: true, user } : {};
-console.log(initialState.user)
 export default function authentication(state = initialState, action) {
-  console.log(action)
-  switch (action.type) {
-    // case userConstants.LOGIN_REQUEST:
-    //   return {
-    //     loggingIn: true,
-    //     user: action.user
-    //   };
-    // case userConstants.LOGIN_SUCCESS:
-    //   return {
-    //     loggedIn: true,
-    //     user: action.user
-    //   };
-    // case userConstants.LOGIN_FAILURE:
-    //   return {};
-    // case userConstants.LOGOUT:
-    //   return {};
 
-    // case userConstants.GETBYID_REQUEST:
-    //   return {
-    //     loading: true,
-    //     user: action.user
-    //   };
-    // case userConstants.GETBYID_SUCCESS:
-    //   return {
-    //     user: action.user
-    //   };
-    // case userConstants.GETBYID_FAILURE:
-    //   return { 
-    //     error: action.error
-    //   };
+  switch (action.type) {
     case `${LOGIN_USER}_PENDING`:
         return {
             ...state,
@@ -85,7 +57,7 @@ export default function authentication(state = initialState, action) {
             ...state,
             loading: false,
             error: true,
-            registerErrorMessage: action.payload,
+            registerErrorMessage: action.payload.errors,
         };
     case `${REGISTER_USER}_PENDING`:
         return {
@@ -110,6 +82,28 @@ export default function authentication(state = initialState, action) {
             error: true,
             registerErrorMessage: action.payload,
         };
+    case `${LOGOUT}_PENDING`:
+        return {
+            ...state,
+            pending: true,
+        };
+    case `${LOGOUT}_FULFILLED`: {
+        return {
+            ...state,
+            pending: false,
+            logoutError: false,
+            authenticated: false,
+            errorMessage: null,
+        };
+    }
+    case `${LOGOUT}_REJECTED`: {
+        return {
+            ...state,
+            pending: false,
+            logoutError: true,
+            errorMessage: action.payload.error,
+        };
+    }
     default:
       return state
   }

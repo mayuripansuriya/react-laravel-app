@@ -65,8 +65,7 @@ export default class RegisterPage extends React.Component {
                 step:3
             })
         }
-       if (user.first_name && user.last_name && user.email && user.password && user.address && user.city) {
-             console.log(user, '---')
+       if (user.first_name && user.email && user.password && user.address && user.city) {
              this.props.register(user.first_name, user.last_name, user.email, user.password ,user.password_confirmation , user.address, user.city, user.image);
        }
     }
@@ -143,7 +142,7 @@ export default class RegisterPage extends React.Component {
 
     
     render() {
-        const { registering, errors  } = this.props;
+        const { registering, registerErrorMessage  } = this.props;
         console.log(this.props, '---0');
 
         const { user, submitted } = this.state;
@@ -156,9 +155,12 @@ export default class RegisterPage extends React.Component {
         }
         return (
             <div className="col-md-6 col-md-offset-3">
+                     
                 {
-                    errors && this.randerErrors(errors)
+                    registerErrorMessage && 
+                    <div class="alert alert-danger"> {this.randerErrors(registerErrorMessage)} </div>
                 }
+                
                 <h2>Register</h2>
                 <form name="form" onSubmit={this.handleSubmit}>
                    { this.state.step === 1 ?
@@ -235,10 +237,10 @@ export default class RegisterPage extends React.Component {
                         :this.state.step === 4 ?
                         <div>
                             <div className="form-group">
-                            
                                  <Panel>
                                     <Panel.Body><span><b>First Name</b>: {this.state.user.first_name}</span></Panel.Body>
                                     <Panel.Body><span><b>Last Name</b>: {this.state.user.last_name}</span></Panel.Body>
+                                    <Panel.Body><span><b>Email</b>: {this.state.user.email}</span></Panel.Body>
                                     <Panel.Body> <span><b>Address: </b>{this.state.user.address}</span></Panel.Body>
                                     <Panel.Body><span><b>City: </b>{this.state.user.city}</span></Panel.Body>
                                 </Panel>   

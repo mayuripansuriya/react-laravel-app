@@ -7,7 +7,7 @@ export default connect(
     state =>{
     	return ({
     	   registering : state.registration,
-    	   errors:state.errors
+    	   registerErrorMessage: state.authentication.registerErrorMessage
     })
     } ,
     dispatch => bindActionCreators(Actions, dispatch)

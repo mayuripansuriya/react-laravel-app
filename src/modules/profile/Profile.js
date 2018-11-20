@@ -29,6 +29,7 @@ export default class ProfilePage extends React.Component {
         //     return <div>Loding .....</div>;
         // }
         const { user  } = this.props;
+        console.log(this.props, '------123455')
         const { submitted } = this.state;
         console.log(user)
         return (

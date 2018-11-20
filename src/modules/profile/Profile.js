@@ -41,7 +41,7 @@ export default class ProfilePage extends React.Component {
                     <Panel.Body><span><b>City: </b>{user.city}</span></Panel.Body>
                 </Panel>     
                 <Link to='/' class="btn btn-primary">back</Link>                                                    
-                 <span><Link to={"/user/edit/" + user.id} style={{"float":"right"}} class="btn btn-success">Edit</Link></span>                                                  
+                 <span><Link to={"/user/" + user.id + "/edit"} style={{"float":"right"}} class="btn btn-success">Edit</Link></span>                                                  
             </div>
         );
     }

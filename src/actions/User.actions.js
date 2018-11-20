@@ -81,7 +81,7 @@ export const getById = (id) => ({
     payload: new Promise(async (resolve, reject) => {
         try {
             const response = await axios.get(
-                GETBYID_URL + id,
+                `${GETBYID_URL}${id}`,
             );
             const {
                 user, message, success

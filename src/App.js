@@ -4,7 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import DefaultTheme from './components/DefaultTheme'
 import Header from './components/Header'
 import routes from './routes'
-// import PrivateRoute from './PrivateRoute'
+import PrivateRoute from './PrivateRoute'
 import HomePage from './modules/homePage'
 
 class App extends Component {
@@ -15,12 +15,20 @@ class App extends Component {
           <Header/>
             <Switch>
               {routes.map((route, index) => (
-                <Route
+
+                <PrivateRoute
                             key={route}
                             path={route.path}
                             exact={route.exact}
                             component={route.component}
                         />
+
+                // <Route
+                //             key={route}
+                //             path={route.path}
+                //             exact={route.exact}
+                //             component={route.component}
+                //         />
               ))}
             </Switch>
         </div>

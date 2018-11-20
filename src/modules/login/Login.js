@@ -12,6 +12,19 @@ export default class Login extends Component {
         submitted: false
     };
  
+    // componentWillMount() {
+    //     const authToken = getToken();
+    //     if (authToken !== null) {
+    //         this.props.history.push('/home');
+    //     }
+    // }
+
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.login.authenticated) {
+    //         this.props.history.push('/home');
+    //         setCurrentTheme(this.props.theme.type);
+    //     }
+    // }
 
     handleChange = (event) => {
         const { name, value } = event.target;

@@ -6,7 +6,7 @@ import Profile from './Profile';
 export default connect(
     state => { console.log(state.authentication, '-0-')
      return ({
-    	 user : state.authentication.user,
+    	 user : state.authentication.user.user,
     	 
     })},
     dispatch => bindActionCreators(Actions, dispatch)

@@ -11,6 +11,7 @@ import Login from './modules/login'
 import Register from './modules/register'
 import Profile from './modules/profile'
 import EditProfile from './modules/editProfile'
+import Notifications from 'react-notify-toast';
 
 class App extends Component {
   render() {
@@ -18,6 +19,9 @@ class App extends Component {
       <MuiThemeProvider muiTheme={DefaultTheme}>
         <div>
           <Header/>
+            <div className='main'>
+                <Notifications />
+            </div>
             <Switch>
               <Router history={history}>
                             <div>

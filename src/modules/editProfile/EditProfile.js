@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
-// import { userActions } from '../_actions';
+import {notify} from 'react-notify-toast';
 
 export default class EditPage extends React.Component {
    state = {
@@ -23,7 +22,6 @@ export default class EditPage extends React.Component {
 
     componentDidMount() {
         this.props.getById(this.props.match.params.id);
-        console.log(this.props.user, '-==-=-=-=-')
         this.setState({
             user:this.props.user
         })
@@ -50,7 +48,13 @@ export default class EditPage extends React.Component {
             submitted:true
         })
        if (user.first_name && user.last_name && user.email && user.address && user.city) {
-            this.props.update(user.id, user.first_name, user.last_name, user.email, user.password ,user.password_confirmation , user.address, user.city, user.image);
+            this.props.update(user.id, user.first_name, user.last_name, user.email, user.password ,user.password_confirmation , user.address, user.city, user.image)
+            .then(
+                user => {
+                    notify.show('Profile edited successfull!', 'success', 1000);
+                    window.location.href = '/user/' + user.id;
+                }
+            )
        }
     }
 
@@ -88,7 +92,9 @@ export default class EditPage extends React.Component {
         const { registering, errors  } = this.props;
 
         const {user, submitted } = this.state;
-
+        if(user && user.loggedIn) {
+            return <div> loading .... </div>
+        }
         let { imagePreviewUrl } = this.state;
         let $imagePreview = null;
         if (imagePreviewUrl) {
@@ -101,7 +107,7 @@ export default class EditPage extends React.Component {
                 {
                     errors && this.randerErrors(errors)
                 }
-                <h2>Edit{user.first_name}</h2>
+                <h2>Edit</h2>
                 <form name="form" onSubmit={this.handleSubmit}>
                     <div>
                         <div className={'form-group' + (submitted && !user.first_name ? ' has-error' : '')}>

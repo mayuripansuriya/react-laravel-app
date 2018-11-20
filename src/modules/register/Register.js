@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { Grid, Row, Col, Panel } from 'react-bootstrap';
-// import { userActions } from '../_actions';
+import { history } from '../../utils/history'
+import {notify} from 'react-notify-toast';
 
 export default class RegisterPage extends React.Component {
     constructor(props) {
@@ -46,9 +47,7 @@ export default class RegisterPage extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         let { user } = this.state;
-        console.log("user", this.state.user);
         const { dispatch } = this.props;
-        console.log(this.props)
         this.setState({
             submitted:true
         })
@@ -66,7 +65,13 @@ export default class RegisterPage extends React.Component {
             })
         }
        if (user.first_name && user.email && user.password && user.address && user.city) {
-             this.props.register(user.first_name, user.last_name, user.email, user.password ,user.password_confirmation , user.address, user.city, user.image);
+             this.props.register(user.first_name, user.last_name, user.email, user.password ,user.password_confirmation , user.address, user.city, user.image)
+             .then(
+                 user => { 
+                    notify.show('Registeration successfull!', 'success', 1000);
+                    history.push('/login');
+                }
+            )
        }
     }
 

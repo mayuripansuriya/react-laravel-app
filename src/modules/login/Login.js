@@ -3,6 +3,8 @@ import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 import './Login.css'
 import { userActions } from '../../actions/User.actions';
+import { history } from '../../utils/history'
+import {notify} from 'react-notify-toast';
 
 export default class Login extends Component {
 
@@ -32,7 +34,15 @@ export default class Login extends Component {
         const { dispatch } = this.props;
 
         if (email && password) {
-           this.props.login({email, password});
+           this.props.login({email, password})
+           .then(
+                user => { 
+                    notify.show('Login successfull!', 'success', 1000);
+                    history.push('/');
+                }
+            );
+
+
         }
     }
 

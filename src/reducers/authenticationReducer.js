@@ -1,12 +1,15 @@
-import { userConstants, LOGIN_USER, REGISTER_USER, GETBYID,  LOGOUT } from '../actions/actionTypes';
+import { userConstants, LOGIN_USER, REGISTER_USER, GETBYID,  LOGOUT, USER_EDIT } from '../actions/actionTypes';
 
 let user = JSON.parse(localStorage.getItem('user'));
 
 const initialState = {
   user: {},
   isLoggedIn: false,
+  isEdited:false,
+  isRegistered:false,
   loginErrorMessage: '',
-  registerErrorMessage: ''
+  registerErrorMessage: '',
+  editErrorMessage:''
 }
 
 initialState.user = user ? { loggedIn: true, user } : {};
@@ -59,6 +62,29 @@ export default function authentication(state = initialState, action) {
             error: true,
             registerErrorMessage: action.payload.errors,
         };
+    case `${USER_EDIT}_PENDING`:
+        return {
+            ...state,
+            loading: true,
+            error: false,
+            editErrorMessage: '',
+        };
+    case `${USER_EDIT}_FULFILLED`:
+        return {
+            ...state,
+            loading: false,
+            isRegistered: true,
+            user: action.payload.data.user,
+            error: false,
+            editErrorMessage: '',
+        };
+    case `${USER_EDIT}_REJECTED`:
+        return {
+            ...state,
+            loading: false,
+            error: true,
+            editErrorMessage: action.payload.errors,
+        };
     case `${REGISTER_USER}_PENDING`:
         return {
             ...state,
@@ -70,7 +96,7 @@ export default function authentication(state = initialState, action) {
         return {
             ...state,
             loading: false,
-            isRegistered: true,
+            isEdited: true,
             user: action.payload.data.user,
             error: false,
             registerErrorMessage: '',

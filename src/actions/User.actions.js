@@ -113,7 +113,7 @@ export const update = (id, first_name, last_name, email, password, password_conf
             let formData = new FormData();
             formData.append('image', image);
             formData.append('first_name', first_name);
-            formData.append('last_name', last_name);
+            last_name ? formData.append('last_name', last_name) : formData.append('last_name', '');
             formData.append('address', address);
             formData.append('city', city);
             formData.append('email', email);

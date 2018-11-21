@@ -5,7 +5,6 @@ import Login from './Login';
 
 export default connect(
     state => {
-    	console.log(state);
     	return ({
     	 user : state.authentication.user,
     	 isLoggedIn: state.authentication.isLoggedIn,

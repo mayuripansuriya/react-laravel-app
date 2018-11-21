@@ -148,7 +148,6 @@ export default class RegisterPage extends React.Component {
     
     render() {
         const { registering, registerErrorMessage  } = this.props;
-        console.log(this.props, '---0');
 
         const { user, submitted } = this.state;
         let { imagePreviewUrl } = this.state;
@@ -248,6 +247,9 @@ export default class RegisterPage extends React.Component {
                                     <Panel.Body><span><b>Email</b>: {this.state.user.email}</span></Panel.Body>
                                     <Panel.Body> <span><b>Address: </b>{this.state.user.address}</span></Panel.Body>
                                     <Panel.Body><span><b>City: </b>{this.state.user.city}</span></Panel.Body>
+                                    <Panel.Body><span><b>Image: </b>  <div className="img-preview">
+                                            {$imagePreview}
+                                        </div></span></Panel.Body>
                                 </Panel>   
                             </div>
                               <button onClick={() => this.changeTabPrev(4)} class="btn btn-primary">prev</button>

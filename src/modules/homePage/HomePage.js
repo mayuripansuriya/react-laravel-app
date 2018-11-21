@@ -16,7 +16,7 @@ export default class HomePage extends React.Component {
                 <h1>Hi {user.first_name}!</h1>
                 <p>You're now logged in!!</p>
                 <span><Link to={"/user/" + user.id}><button class="btn btn-primary">View Profile</button></Link></span>
-                <span><Link to="/login" class="btn btn-success" style={{"float":"right"}}>Logout</Link></span>
+                <span><Link to="/login" class="link-success" >Logout</Link></span>
                 
             </div>
         );

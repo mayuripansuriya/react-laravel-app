@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {notify} from 'react-notify-toast';
+import { IMAGE_URL } from '../../utils/constants';
 
 export default class EditPage extends React.Component {
    state = {
@@ -16,7 +17,7 @@ export default class EditPage extends React.Component {
                 image: ''
             },
             image:"",
-            imagePreviewUrl: '',
+            imagePreviewUrl: `${IMAGE_URL}${this.props.user.image}`,
             submitted: false
         };
 
@@ -29,7 +30,6 @@ export default class EditPage extends React.Component {
     handleChange = (event) => {
 
         const { name, value } = event.target;
-        console.log(name, value);
         const { user } = this.state;
         this.setState({
             user: {
@@ -47,12 +47,12 @@ export default class EditPage extends React.Component {
         this.setState({
             submitted:true
         })
-       if (user.first_name && user.last_name && user.email && user.address && user.city) {
+       if (user.first_name  && user.email && user.address && user.city) {
             this.props.update(user.id, user.first_name, user.last_name, user.email, user.password ,user.password_confirmation , user.address, user.city, user.image)
             .then(
                 user => {
                     notify.show('Profile edited successfull!', 'success', 1000);
-                    window.location.href = '/user/' + user.id;
+                    window.location.href = '/user/' + user.value.data.user.id;
                 }
             )
        }
@@ -92,10 +92,11 @@ export default class EditPage extends React.Component {
         const { registering, errors  } = this.props;
 
         const {user, submitted } = this.state;
-        if(user && user.loggedIn) {
+        if(!user || user.first_name == "") {
             return <div> loading .... </div>
         }
-        let { imagePreviewUrl } = this.state;
+        let {imagePreviewUrl}  = this.state;
+
         let $imagePreview = null;
         if (imagePreviewUrl) {
             $imagePreview = (<img src={imagePreviewUrl} style={{"width": "100px"}} className={'img-preview'} />);

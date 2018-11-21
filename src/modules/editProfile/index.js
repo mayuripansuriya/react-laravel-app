@@ -4,9 +4,13 @@ import * as Actions from '../../actions/User.actions';
 import EditProfile from './EditProfile';
 
 export default connect(
-    state =>  { console.log(state.authentication.user, '-0-0------')
+    state =>  { 
+    	let user = state.authentication.user;
+    	if(state.authentication.user.user) {
+    		 user = state.authentication.user.user
+    	}
      return ({
-    	 user : state.authentication.user,
+    	 user : user,
     	 
     })},
     dispatch => bindActionCreators(Actions, dispatch)

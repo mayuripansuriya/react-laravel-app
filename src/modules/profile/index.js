@@ -4,7 +4,7 @@ import * as Actions from '../../actions/User.actions';
 import Profile from './Profile';
 
 export default connect(
-    state => { console.log(state.authentication, '-0-88888')
+    state => { 
      return ({
     	 user : state.authentication.user,
     	 

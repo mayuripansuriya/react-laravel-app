@@ -59,7 +59,6 @@ export const register = (first_name, last_name, email, password, password_confir
             } = response.data;
 
             if (user && user.api_token) {
-                await localStorage.setItem('user', JSON.stringify(user));
 
                 return resolve({
                     data: response.data,
@@ -89,7 +88,7 @@ export const getById = (id) => ({
             } = response.data;
 
             if (user && user.api_token) {
-                await localStorage.setItem('user', JSON.stringify(user));
+            
                 return resolve({
                     data: response.data,
                 });

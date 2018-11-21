@@ -11,6 +11,7 @@ export default connect(
     	}
      return ({
     	 user : user,
+    	 error:state.authentication.error
     	 
     })},
     dispatch => bindActionCreators(Actions, dispatch)

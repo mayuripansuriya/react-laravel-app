@@ -9,12 +9,13 @@ const initialState = {
   isRegistered:false,
   loginErrorMessage: '',
   registerErrorMessage: '',
-  editErrorMessage:''
+  editErrorMessage:'',
+  errorMessage:''
 }
 
 initialState.user = user ? { loggedIn: true, user } : {};
 export default function authentication(state = initialState, action) {
-
+console.log(action)
   switch (action.type) {
     case `${LOGIN_USER}_PENDING`:
         return {
@@ -106,7 +107,7 @@ export default function authentication(state = initialState, action) {
             ...state,
             loading: false,
             error: true,
-            registerErrorMessage: action.payload,
+            errorMessage: action.payload,
         };
     case `${LOGOUT}_PENDING`:
         return {

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Grid, Row, Col, Panel } from 'react-bootstrap';
 import { IMAGE_URL } from '../../utils/constants';
+import {notify} from 'react-notify-toast';
 
 export default class ProfilePage extends React.Component {
     componentDidMount() {
@@ -10,6 +11,10 @@ export default class ProfilePage extends React.Component {
     }
 
     render() {
+        if(this.props.error) {
+            notify.show("unauthorised", "error", 1000);
+            window.location.href = "/login"
+        }
         if (!this.props.user) {
             return <div>Loding .....</div>;
         }

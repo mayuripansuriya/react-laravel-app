@@ -7,6 +7,8 @@ export default connect(
     state => { 
      return ({
     	 user : state.authentication.user,
+    	 errorMessage: state.authentication.errorMessage,
+    	 error: state.authentication.error,
     	 
     })},
     dispatch => bindActionCreators(Actions, dispatch)

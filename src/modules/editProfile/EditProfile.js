@@ -92,6 +92,10 @@ export default class EditPage extends React.Component {
         const { registering, errors  } = this.props;
 
         const {user, submitted } = this.state;
+         if(this.props.error) {
+            notify.show("unauthorised", "error", 1000);
+            window.location.href = "/login"
+        }
         if(!user || user.first_name == "") {
             return <div> loading .... </div>
         }
